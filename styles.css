@@ -1,0 +1,377 @@
+/* ==================== MINIMAL BASE STYLES ==================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.7;
+  color: #1f2937;
+  background: #f9fafb;
+}
+
+/* ==================== SCROLL-STATE CONTAINER (for back-to-top) ==================== */
+html {
+  container-type: scroll-state;
+  container-name: page;
+}
+
+/* ==================== BACK TO TOP BUTTON ==================== */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  background: #3b82f6;
+  color: white;
+  text-decoration: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  z-index: 100;
+
+  /* Hidden by default - slides in from right */
+  translate: 80px 0;
+  transition: translate 0.3s ease, background 0.2s;
+}
+
+.back-to-top:hover {
+  background: #2563eb;
+}
+
+/* SCROLL-STATE: Show button when page can be scrolled up */
+@container page scroll-state(scrollable: top) {
+  .back-to-top {
+    translate: 0 0;
+  }
+}
+
+/* ==================== STICKY HEADER ==================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 1rem 2rem;
+
+  /* SCROLL-STATE: Container for stuck detection */
+  container-type: scroll-state;
+  container-name: header;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #1f2937;
+}
+
+.main-nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.main-nav a {
+  color: #4b5563;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.main-nav a:hover {
+  color: #3b82f6;
+}
+
+/* SCROLL-STATE: Style header when stuck to top */
+@container header scroll-state(stuck: top) {
+  .header-content {
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* ==================== LAYOUT ==================== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 155px;
+  gap: 3rem;
+}
+
+/* ==================== TABLE OF CONTENTS ==================== */
+.toc {
+  position: sticky;
+  top: 100px;
+  align-self: start;
+  order: 1;
+}
+
+.toc h4 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+/* SCROLL-TARGET-GROUP: Enable automatic current link detection */
+.toc-list {
+  list-style: none;
+  padding: 0;
+  scroll-target-group: auto;
+}
+
+.toc-list li {
+  margin-bottom: 0.5rem;
+}
+
+.toc-list a {
+  display: block;
+  padding: 0.4rem 0.75rem;
+  color: #6b7280;
+  text-decoration: none;
+  font-size: 0.9rem;
+  border-left: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.toc-list a:hover {
+  color: #3b82f6;
+  border-left-color: #93c5fd;
+}
+
+/* SCROLL-TARGET-GROUP: Highlight link for currently visible section */
+.toc-list a:target-current {
+  color: #3b82f6;
+  font-weight: 600;
+  border-left-color: #3b82f6;
+  background: #eff6ff;
+}
+
+/* ==================== ARTICLE ==================== */
+.article {
+  min-width: 0;
+}
+
+.article-header {
+  margin-bottom: 3rem;
+}
+
+.category {
+  display: inline-block;
+  background: #dbeafe;
+  color: #1d4ed8;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.article-header h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.meta {
+  color: #6b7280;
+}
+
+.section {
+  margin-bottom: 3rem;
+  scroll-margin-top: 100px;
+}
+
+.section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #111827;
+}
+
+.section p {
+  margin-bottom: 1rem;
+  color: #374151;
+}
+
+.section ul {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+  color: #374151;
+}
+
+.section li {
+  margin-bottom: 0.5rem;
+}
+
+.section code {
+  background: #f3f4f6;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: #dc2626;
+}
+
+/* ==================== CAROUSEL ==================== */
+.carousel-container {
+  position: relative;
+  margin: 1.5rem 0;
+}
+
+.carousel {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  border-radius: 12px;
+  scrollbar-width: none;
+
+  /* SCROLL-MARKER-GROUP: Position dots below carousel */
+  scroll-marker-group: after;
+}
+
+/* SCROLL-MARKER-GROUP: Style the dot container */
+.carousel::scroll-marker-group {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+
+  /* SCROLL-STATE: Enable snapped detection for this slide */
+  container-type: scroll-state;
+  container-name: slide;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+
+  transition: all 0.3s ease;
+  opacity: 0.5;
+  scale: 0.75;
+}
+
+@container slide scroll-state(snapped: x) {
+  .carousel-slide img {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+/* SCROLL-MARKER: Create dot for each slide */
+.carousel-slide::scroll-marker {
+  content: "";
+  width: 15px;
+  height: 15px;
+  background: #d1d5db;
+  border: 1px solid #9ca3af;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.carousel-slide::scroll-marker:hover {
+  background: #9ca3af;
+}
+
+/* SCROLL-MARKER: Highlight active dot */
+.carousel-slide::scroll-marker:target-current {
+  background: #3b82f6;
+  transform: scale(1.3);
+  border: 1px solid black;
+}
+
+/* SCROLL-BUTTON: Create arrow buttons */
+.carousel::scroll-button(*) {
+  border: none;
+  background: white;
+  color: #374151;
+  font-size: 1.25rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.carousel::scroll-button(*):hover:not(:disabled) {
+  background: #3b82f6;
+  color: white;
+}
+
+.carousel::scroll-button(*):disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.carousel::scroll-button(left) {
+  content: "←";
+  left: 1.5rem;
+}
+
+.carousel::scroll-button(right) {
+  content: "→";
+  right: 1.5rem;
+}
+
+/* ==================== FOOTER ==================== */
+.site-footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: #6b7280;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 2rem;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+
+  .toc {
+    display: none;
+  }
+
+  .carousel::scroll-button(left) {
+    left: 0.5rem;
+  }
+
+  .carousel::scroll-button(right) {
+    right: 0.5rem;
+  }
+}

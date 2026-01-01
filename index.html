@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Future of CSS - A Blog Article Demo</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body id="top">
+    <!-- Back to Top Button - appears when page is scrolled -->
+    <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+
+    <!-- Sticky Header - changes style when stuck -->
+    <header class="site-header">
+      <div class="header-content">
+        <span class="logo">DevBlog</span>
+        <nav class="main-nav">
+          <a href="#">Home</a>
+          <a href="#">Articles</a>
+          <a href="#">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- Floating Table of Contents -->
+      <aside class="toc">
+        <h4>Contents</h4>
+        <ol class="toc-list">
+          <li><a href="#intro">Introduction</a></li>
+          <li><a href="#scroll-buttons">Scroll Buttons</a></li>
+          <li><a href="#scroll-state">Scroll State Queries</a></li>
+          <li><a href="#scroll-markers">Scroll Markers</a></li>
+          <li><a href="#conclusion">Conclusion</a></li>
+        </ol>
+      </aside>
+
+      <!-- Article Content -->
+      <article class="article">
+        <header class="article-header">
+          <span class="category">CSS</span>
+          <h1>The Future of CSS: Scroll-Driven Features</h1>
+          <p class="meta">January 1, 2026 · 5 min read</p>
+        </header>
+
+        <section id="intro" class="section">
+          <h2>Introduction</h2>
+          <p>
+            CSS is evolving rapidly, and some of the most exciting new features
+            are centered around scroll-driven interactions. These features allow
+            developers to create rich, interactive experiences without writing a
+            single line of JavaScript.
+          </p>
+          <p>
+            In this article, we'll explore three powerful new CSS capabilities:
+            <code>::scroll-button()</code>, <code>scroll-state()</code> queries,
+            and <code>::scroll-marker</code>. Together, these features enable
+            native carousels, sticky header effects, and intelligent navigation
+            highlighting.
+          </p>
+          <p>
+            The best part? All of these features work with the browser's native
+            scroll behavior, ensuring smooth performance and accessibility out
+            of the box.
+          </p>
+        </section>
+
+        <section id="scroll-buttons" class="section">
+          <h2>Scroll Buttons</h2>
+          <p>
+            The <code>::scroll-button()</code> pseudo-element creates native
+            navigation buttons for scroll containers. These buttons
+            automatically handle scrolling by one "page" in the specified
+            direction.
+          </p>
+          <p>
+            Below is a live example of a carousel built entirely with CSS. Click
+            the arrows or dots to navigate:
+          </p>
+
+          <!-- Carousel Demo -->
+          <div class="carousel-container">
+            <div class="carousel">
+              <div class="carousel-slide">
+                <img
+                  src="https://picsum.photos/seed/css1/800/400"
+                  alt="Slide 1"
+                />
+              </div>
+              <div class="carousel-slide">
+                <img
+                  src="https://picsum.photos/seed/css2/800/400"
+                  alt="Slide 2"
+                />
+              </div>
+              <div class="carousel-slide">
+                <img
+                  src="https://picsum.photos/seed/css3/800/400"
+                  alt="Slide 3"
+                />
+              </div>
+              <div class="carousel-slide">
+                <img
+                  src="https://picsum.photos/seed/css4/800/400"
+                  alt="Slide 4"
+                />
+              </div>
+            </div>
+          </div>
+
+          <p>
+            The carousel above uses <code>::scroll-button(left)</code> and
+            <code>::scroll-button(right)</code> for the arrow navigation. The
+            buttons automatically disable when you reach the start or end of the
+            content.
+          </p>
+        </section>
+
+        <section id="scroll-state" class="section">
+          <h2>Scroll State Queries</h2>
+          <p>
+            Container scroll-state queries let you style elements based on their
+            scroll container's state. There are three types:
+          </p>
+          <ul>
+            <li>
+              <strong>scrollable</strong> - Is there content to scroll to in a
+              direction?
+            </li>
+            <li>
+              <strong>snapped</strong> - Is an element currently snapped to its
+              container?
+            </li>
+            <li>
+              <strong>stuck</strong> - Is a sticky element currently stuck?
+            </li>
+          </ul>
+          <p>
+            Notice the header at the top of this page? When you scroll down, it
+            changes from transparent to a solid background with a shadow. This
+            is achieved using <code>scroll-state(stuck: top)</code>.
+          </p>
+          <p>
+            Similarly, the "back to top" button in the bottom-right corner only
+            appears when you've scrolled down. This uses
+            <code>scroll-state(scrollable: top)</code> to detect when the page
+            can be scrolled upward.
+          </p>
+          <p>
+            These queries eliminate the need for JavaScript scroll event
+            listeners, improving performance and reducing code complexity.
+          </p>
+        </section>
+
+        <section id="scroll-markers" class="section">
+          <h2>Scroll Markers</h2>
+          <p>
+            The <code>::scroll-marker</code> pseudo-element generates navigation
+            markers for scroll snap targets. Combined with
+            <code>scroll-marker-group</code>, you can create dot navigation for
+            carousels without any HTML markup.
+          </p>
+          <p>
+            The carousel above uses scroll markers for its dot indicators. Each
+            slide generates a marker, and the <code>:target-current</code>
+            pseudo-class highlights which slide is currently visible.
+          </p>
+          <p>
+            For more complex navigation needs, you can use
+            <code>scroll-target-group</code> on a regular navigation element.
+            The table of contents on this page demonstrates this—as you scroll
+            through sections, the corresponding link highlights automatically.
+          </p>
+        </section>
+
+        <section id="conclusion" class="section">
+          <h2>Conclusion</h2>
+          <p>
+            These new CSS scroll features represent a significant step forward
+            for web development. By moving scroll-driven interactions into CSS,
+            we get:
+          </p>
+          <ul>
+            <li>Better performance (no JavaScript scroll listeners)</li>
+            <li>Reduced code complexity</li>
+            <li>Built-in accessibility</li>
+            <li>Smoother animations and transitions</li>
+          </ul>
+          <p>
+            While browser support is still limited to Chromium-based browsers,
+            these features are on track to become web standards. Start
+            experimenting with them today to be ready when they're widely
+            available!
+          </p>
+          <p>
+            <em>
+              Note: This demo requires Chrome or Edge 135+ to see all features
+              in action.
+            </em>
+          </p>
+        </section>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>CSS Scroll Features Demo · Built with pure CSS</p>
+    </footer>
+  </body>
+</html>
